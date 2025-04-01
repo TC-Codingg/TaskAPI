@@ -1,29 +1,72 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Task List</title>
+    <title>✨ Task Manager</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <script src="https://unpkg.com/phosphor-icons"></script>
 </head>
-<body class="bg-gray-100 flex justify-center items-center min-h-screen">
+<body class="bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 min-h-screen font-['Poppins'] text-gray-800">
+    <div class="container mx-auto px-6 py-12">
+        <div class="max-w-3xl mx-auto">
+            <!-- Header Section -->
+            <header class="text-center mb-12 animate__animated animate__fadeIn">
+                <div class="inline-block mb-4 p-2 rounded-full bg-white/50 backdrop-blur-sm">
+                    <i class="ph-check-circle text-4xl text-blue-600"></i>
+                </div>
+                <h1 class="text-6xl font-semibold bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent mb-4">
+                    Task Manager
+                </h1>
+                <p class="text-gray-600 text-lg">Transform your ideas into actionable tasks ✨</p>
+            </header>
 
-    <div class="bg-white p-6 rounded-lg shadow-md w-full max-w-md">
-        <h1 class="text-2xl font-bold text-center mb-4">Task list</h1>
+            <!-- Main Task Section -->
+            <div class="bg-white/80 backdrop-blur-xl rounded-2xl shadow-xl p-8 mb-8 animate__animated animate__fadeInUp">
+                <!-- Task Input -->
+                <div class="flex gap-4 mb-8">
+                    <div class="flex-1 relative group">
+                        <i class="ph-list-plus absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-xl transition-colors group-hover:text-blue-500"></i>
+                        <input type="text" 
+                               id="taskInput" 
+                               placeholder="What needs to be done?" 
+                               class="w-full pl-12 pr-4 py-4 bg-gray-50/80 border-2 border-gray-100 rounded-xl text-lg focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all placeholder:text-gray-400 hover:border-gray-200"
+                               onkeyup="if(event.key === 'Enter') addTask()">
+                    </div>
+                    <button onclick="addTask()" 
+                            class="px-8 py-4 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 text-white rounded-xl hover:from-blue-700 hover:via-purple-700 hover:to-pink-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 transition-all transform hover:scale-105 hover:shadow-lg text-lg font-medium group">
+                        Add Task
+                        <i class="ph-plus-circle ml-2 group-hover:rotate-90 transition-transform"></i>
+                    </button>
+                </div>
 
+                <!-- Task List -->
+                <div class="space-y-3" id="taskList"></div>
+            </div>
 
-        <div class="flex mb-4">
-            <input type="text" id="taskInput" placeholder="New task" 
-                   class="flex-1 p-2 border rounded-l-md focus:outline-none">
-            <button onclick="addTask()" class="bg-blue-500 text-white px-4 py-2 rounded-r-md hover:bg-blue-600">
-                Add Task
-            </button>
+            <!-- Footer Section -->
+            <footer class="text-center text-gray-600 bg-white/50 backdrop-blur-sm rounded-xl p-6 animate__animated animate__fadeIn">
+                <div class="flex items-center justify-center gap-8 text-sm font-medium">
+                    <span class="flex items-center gap-2 hover:text-blue-600 transition-colors">
+                        <i class="ph-mouse text-blue-600 text-lg"></i>
+                        Click to edit
+                    </span>
+                    <span class="w-px h-4 bg-gray-300"></span>
+                    <span class="flex items-center gap-2 hover:text-blue-600 transition-colors">
+                        <i class="ph-keyboard text-blue-600 text-lg"></i>
+                        Enter to save
+                    </span>
+                    <span class="w-px h-4 bg-gray-300"></span>
+                    <span class="flex items-center gap-2 hover:text-blue-600 transition-colors">
+                        <i class="ph-keyboard-return text-blue-600 text-lg"></i>
+                        Escape to cancel
+                    </span>
+                </div>
+            </footer>
         </div>
-
-
-        <ul id="taskList" class="space-y-2"></ul>
     </div>
-
     <script src="script.js"></script>
 </body>
 </html>
