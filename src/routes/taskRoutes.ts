@@ -2,14 +2,17 @@ import { Router, Request, Response } from "express";
 import { AppDataSource } from "../data-source";
 import { Task } from "../entities/Task";
 
+// Initialize Express Router and TypeORM repository
 const router = Router();
 const taskRepository = AppDataSource.getRepository(Task);
 
+// GET: Fetch all tasks from database
 router.get("/tasks", async (__dirname, res) => {
     const tasks = await taskRepository.find()
     res.json(tasks)
 })
 
+// POST: Create new task with title
 router.post("/tasks", async (req, res) => {
     const {title} = req.body;
     const newTask = taskRepository.create({title})
@@ -17,6 +20,7 @@ router.post("/tasks", async (req, res) => {
     res.status(201).json(newTask)
 })
 
+// PUT: Update existing task by ID
 router.put("/tasks/:id", async (req, res ): Promise<any> =>{
     const { id } = req.params;
     const {status} = req.body
@@ -31,6 +35,7 @@ router.put("/tasks/:id", async (req, res ): Promise<any> =>{
     return res.json(task)
 })
 
+// DELETE: Remove task by ID
 router.delete("/tasks/:id", async (req, res): Promise<any> => {
     const {id} = req.params;
     const task = await taskRepository.findOneBy({id: parseInt(id)})

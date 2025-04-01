@@ -12,6 +12,6 @@ export const AppDataSource = new DataSource({
         rejectUnauthorized: false
     },
     entities: [Task],
-    synchronize: true, // Be careful with this in production
+    synchronize: true, 
     logging: true
 })
