@@ -14,15 +14,15 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 app.use(express.json());
-app.use(express.static(path.join('src/', 'frontend')));
+app.use(express.static(path.join(__dirname, 'frontend')));
 
 app.get('/', (req, res) => {
-    res.sendFile('src/frontend/index.html');
+    res.sendFile(path.join(__dirname, 'frontend', 'index.html'));
 });
 
 app.use(taskRoutes);
 
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 AppDataSource.initialize()
 .then(() => {
