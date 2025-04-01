@@ -20,11 +20,13 @@ router.post("/tasks", async (req, res) => {
 router.put("/tasks/:id", async (req, res ): Promise<any> =>{
     const { id } = req.params;
     const {status} = req.body
+    const {title} = req.body
     const task = await taskRepository.findOneBy({id: parseInt(id)})
 
     if(!task) return res.status(404).json({message: "Task not found"})
 
     task.status = status
+    task.title = title
     await taskRepository.save(task)
     return res.json(task)
 })

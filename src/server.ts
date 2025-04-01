@@ -2,9 +2,9 @@ import express from "express";
 import { AppDataSource } from "./data-source";
 import taskRoutes from "./routes/taskRoutes";
 import cors from "cors";
+import path from "path";
 
 const app = express();
-
 
 const corsOptions = {
     origin: '*', 
@@ -14,17 +14,21 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 app.use(express.json());
-app.use(express.static('src/frontend'));
+app.use(express.static(path.join('src/', 'frontend')));
+
+app.get('/', (req, res) => {
+    res.sendFile('src/frontend/index.html');
+});
+
 app.use(taskRoutes);
 
 const PORT = 3000;
 
 AppDataSource.initialize()
 .then(() => {
-console.log("Database connected successfully");
-
-app.listen(PORT, () =>{
-    console.log(`Server is running on http://localhost:${PORT}`);
-});
+    console.log("Database connected successfully");
+    app.listen(PORT, () => {
+        console.log(`Server is running on http://localhost:${PORT}`);
+    });
 })
 .catch((error) => console.log(error));
