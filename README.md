@@ -1,109 +1,163 @@
 # TaskAPI
 
 ## Overview
-TaskAPI is a simple task management application built with Node.js, Express, TypeORM, and SQLite. It provides a RESTful API for managing tasks and includes a basic frontend interface for interacting with the API.
+TaskAPI is a modern task management application built with Node.js, Express, TypeORM, and PostgreSQL, featuring a responsive web interface.
 
 ## Project Structure
 ```
 TaskAPI/
-├── database.sqlite         # SQLite database file
-├── .gitignore              # Git ignore file
-├── package.json            # Project dependencies and scripts
-├── tsconfig.json           # TypeScript configuration
 ├── src/
-│   ├── data-source.ts      # Database configuration
-│   ├── server.ts           # Main application entry point
 │   ├── entities/
 │   │   └── Task.ts         # Task entity definition
-│   ├── routes/
-│   │   └── taskRoutes.ts   # API routes for task management
 │   ├── frontend/
-│       ├── index.html      # Frontend HTML file
-│       └── script.js       # Frontend JavaScript file
+│   │   ├── index.html      # Frontend interface
+│   │   └── script.js       # Frontend logic
+│   ├── routes/
+│   │   └── taskRoutes.ts   # API endpoints
+│   ├── data-source.ts      # Database configuration
+│   └── server.ts           # Application entry point
+├── .env                    # Environment variables
+└── vercel.json             # Vercel deployment config
 ```
+
+## Tech Stack
+- **Backend:**
+  - Node.js with TypeScript
+  - Express.js for REST API
+  - TypeORM for database management
+  - PostgreSQL (Supabase) as database
+- **Frontend:**
+  - HTML5 & JavaScript
+  - TailwindCSS for styling
+  - Phosphor Icons
+  - Animate.css for animations
 
 ## Features
 ### Backend
-- RESTful API for managing tasks
-- SQLite database integration using TypeORM
-- CORS support for cross-origin requests
-- Static file serving for the frontend
+- RESTful API endpoints
+- PostgreSQL integration
+- CORS support
+- Static file serving
+- Environment variable configuration
+- Vercel deployment support
 
 ### Frontend
-- View a list of tasks
-- Add new tasks
-- Mark tasks as completed
-- Delete tasks
+- Modern, responsive UI
+- Real-time task updates
+- Inline task editing
+- Status toggling
+- Visual feedback with animations
+- Toast notifications
 
 ## API Endpoints
+
 ### Tasks
-- **GET /tasks**: Retrieve all tasks
-- **POST /tasks**: Create a new task
-  - Request body: `{ "title": "Task title" }`
-- **PUT /tasks/:id**: Update a task's status
-  - Request body: `{ "status": "completed" }`
-- **DELETE /tasks/:id**: Delete a task
+```typescript
+GET    /tasks     // Retrieve all tasks
+POST   /tasks     // Create a new task
+PUT    /tasks/:id // Update task status/title
+DELETE /tasks/:id // Delete a task
+```
 
 ## Database Schema
-### Task Entity
+
 ```typescript
 @Entity()
 export class Task {
     @PrimaryGeneratedColumn()
-    id: number;
+    id: number
 
     @Column()
-    title: string;
+    title: string
 
     @Column({ default: "Pending" })
-    status: string;
+    status: string
 }
 ```
 
-## Setup and Installation
-1. Clone the repository:
-   ```bash
-   git clone <repository-url>
-   cd TaskAPI
-   ```
+## Setup & Installation
 
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
-
-3. Start the development server:
-   ```bash
-   npx ts-node src/server.ts
-   ```
-
-4. Access the application:
-   - Frontend: `http://localhost:3000`
-   - API: `http://localhost:3000/tasks`
-
-## Frontend Usage
-The frontend is a simple HTML and JavaScript interface that interacts with the API:
-- **index.html**: Displays the task list and provides input for adding tasks.
-- **script.js**: Handles API requests (fetching, adding, updating, and deleting tasks).
-
-## CORS Configuration
-The server uses the `cors` middleware with the following configuration:
-```typescript
-const corsOptions = {
-    origin: '*',
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    allowedHeaders: ['Content-Type']
-};
-app.use(cors(corsOptions));
+1. **Clone Repository:**
+```bash
+git clone <repository-url>
+cd TaskAPI
 ```
 
+2. **Install Dependencies:**
+```bash
+npm install
+```
+
+3. **Environment Configuration:**
+Create `.env` file:
+```env
+DATABASE_URL=your_postgresql_connection_string
+```
+
+4. **Start Development Server:**
+```bash
+npm run dev
+```
+
+## Deployment
+This project is configured for Vercel deployment:
+
+1. **Configure Vercel:**
+```json
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "src/server.ts",
+      "use": "@vercel/node"
+    }
+  ]
+}
+```
+
+2. **Environment Variables:**
+- Add `DATABASE_URL` in Vercel dashboard
+- Configure PostgreSQL connection string
+
+## Frontend Usage
+The interface provides:
+- Task input with add button
+- Task list with inline editing
+- Status toggling
+- Delete functionality
+- Visual feedback
+- Keyboard shortcuts
+
 ## Development Notes
-- **TypeScript**: The project is written in TypeScript for type safety and better maintainability.
-- **Database Synchronization**: TypeORM automatically synchronizes the database schema with the `Task` entity.
-- **Static File Serving**: The frontend files are served from the `src/frontend` directory.
+- Uses TypeScript for type safety
+- Automatic database synchronization
+- CORS enabled for all origins
+- Frontend served statically
+- PostgreSQL hosted on Supabase
+
+## Security Considerations
+- Environment variables for sensitive data
+- CORS configuration
+- Database SSL enabled
+- Input validation
+- Error handling
 
 ## Future Improvements
-- Add user authentication for secure task management.
-- Implement pagination for the task list.
-- Enhance the frontend with a modern framework like React or Vue.js.
-- Add unit tests for API endpoints.
+- User authentication
+- Task categories
+- Due dates
+- Search functionality
+- Filters and sorting
+- Dark mode
+- Mobile app version
+- Offline support
+
+## Contributing
+1. Fork repository
+2. Create feature branch
+3. Commit changes
+4. Push to branch
+5. Create Pull Request
+
+## License
+This project is under ISC license.
